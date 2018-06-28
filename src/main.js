@@ -3,17 +3,21 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 
-import App from './App'
-import router from './router'
+import App from '@/App'
+import router from '@/router'
+import { store } from '@/store/store'
+import { FIREBASE_URL } from '@/config/firebase'
 
 // testing purposes:
 Vue.config.productionTip = false
 
 Vue.use(VueResource)
+Vue.http.options.root = FIREBASE_URL
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

@@ -1,14 +1,23 @@
 <template>
-  <div>
-    <h2>PortFolio</h2>
+  <div class="row portfolio">
+    <appPortfolioItem v-for="position in portfolio" :key="position.id" :position="position" />
   </div>
 </template>
 
 <script>
+import PortfolioItem from '@/components/PortfolioItem'
 export default {
   data () {
-    return {
+    return { /* any data? */ }
+  },
+  computed: {
+    portfolio () {
+      // console.log('portfolio', this.$store.state.portfolio)
+      return this.$store.state.portfolio
     }
+  },
+  components: {
+    appPortfolioItem: PortfolioItem
   }
 }
 </script>

@@ -24,26 +24,42 @@
         <a>Stocks</a>
       </router-link>
     </ul>
-    showSaveLoad : {{ showSaveLoad }}
-    lastClicked : {{ lastClicked }}
 
     <ul class="nav navbar-nav navbar-right">
       <li
-          active-class="active"
           @click="endDay"
       >
         <a>End Day</a>
       </li>
-      <li
-          @click="toggleSaveLoad"
-      >
-        <a>Save & Load</a>
-        <ul class="nar navbar-nav nav-pills" v-if="showSaveLoad">
-          <li class="nav" @click="saveData">Save</li>
-          <li class="nav" @click="loadData">Load</li>
-        </ul>
-      </li>
-      <p class="navbar-text">Funds: ${{ '10.000' }}</p>
+
+      <li class="dropdown">
+        <a  href="#"
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+        >
+          Save & Load <span class="caret"></span>
+        </a>
+
+      <ul class="dropdown-menu">
+        <li @click="saveData">
+          <a href="#"
+              class="dropdown-toggle" data-toggle="dropdown">
+            Save Data
+          </a>
+        </li>
+        <li role="separator" class="divider">
+        <li @click="loadData">
+          <a href="#"
+              class="dropdown-toggle" data-toggle="dropdown">
+            Load Data
+          </a>
+        </li>
+      </ul>
+
+    </li>
+
+      <p class="navbar-text">Funds: {{ formattedFunds }}</p>
     </ul>
 
   </div>
@@ -51,6 +67,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -58,21 +75,19 @@ export default {
       lastClicked: ''
     }
   },
+  computed: {
+    ...mapGetters(['formattedFunds', 'formattedAmount'])
+  },
   methods: {
-    toggleSaveLoad () {
-      this.showSaveLoad = !this.showSaveLoad
-      this.lastClicked = 'save&load'
-    },
     saveData () {
-      this.showSaveLoad = false
-      this.lastClicked = 'save'
-      alert('saveData')
+      this.$emit('handleClick', 'saveData')
     },
     loadData () {
-      this.showSaveLoad = false
-      this.lastClicked = 'load'
+      this.$emit('handleClick', 'loadData')
     },
-    endDay () { alert('end day action') }
+    endDay () {
+      this.$emit('handleClick', 'endOfDay')
+    }
   }
 }
 </script>
