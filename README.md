@@ -2,7 +2,7 @@
 
 > Udemy, course VueJS. Final Project - Stock Trader
 
-*Started 22-06-2018, finished ..-06-2018*
+*Started 22-06-2018, finished 29-06-2018*
 
 
 
@@ -33,8 +33,20 @@ Initialized Vue project with template `webpack`.
 
 Created a git repository. Let's commit regularly to refresh git knowledge.
 
-
-
 Took some time to get testing working. Jest had a warning intitally, deprecated option, removed it from `./tests/unit.jest.conf.js`.
 
 Almost gave up on NightWatch, but got it running in the end. Only Oracle Java JDK needed to be installed.
+
+
+
+##### Coding time ......
+
+
+
+##### Done
+
+It took some time, also many distractions, but managed to code ahead and got it working as it should and more.
+
+All good resolutions about testing, hmm, did not do well on that part. Did some committing to repository now and then, but was focused on building it and getting it to run and run well mainly.
+
+Especially testing will take a lot of time to do research and get it into my system. I should make time for it when the course is done, this project might be a nice object to study it with.
