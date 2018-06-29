@@ -1,16 +1,31 @@
 <template lang="html">
-  <div class="panel panel-default col-sm-6 col-md-4">
+
+  <div class="panel panel-success col-sm-6 col-md-4">
     <div class="panel-heading">
       <h2 class="panel-title">
         {{ stock.name }}
+        <small> (Price: {{ formattedAmount(stock.price) }})</small>
       </h2>
-      (Price: {{ formattedAmount(stock.price) }})
       <span class="stock-id">{{ stock.id }}</span>
     </div>
     <div class="panel-body">
-      <input type="text" name="" v-model.number="buyQuantity">
-      <button @click="handleBuy">Buy</button>
+      <div class="pull-left">
+        <input type="number"
+          class="form-control"
+          v-model.number="buyQuantity"
+          :class="{danger: invalidInput}"
+        >
+      </div>
+      <div class="pull-right">
+        <button
+          class="btn btn-success"
+          @click="handleBuy"
+          :disabled="buyQuantity === 0 || invalidInput"
+        >Buy</button>
+      </div>
     </div>
+    <p v-if="insufficientFunds" class="alert alert-warning">Insufficient Funds</p>
+    <p v-else-if="invalidQuantity" class="alert alert-warning">Invalid Quantity</p>
   </div>
 
 </template>
@@ -24,7 +39,19 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['formattedFunds', 'formattedAmount'])
+    ...mapGetters(
+      ['formattedFunds', 'formattedAmount', 'funds']
+    ),
+    insufficientFunds () {
+      return this.buyQuantity * this.stock.price > this.funds
+    },
+    invalidQuantity () {
+      return this.buyQuantity < 0 ||
+        (this.buyQuantity > 0 && !Number.isInteger(this.buyQuantity))
+    },
+    invalidInput () {
+      return this.insufficientFunds || this.invalidQuantity
+    }
   },
   props: ['stock'],
   methods: {
@@ -51,4 +78,5 @@ export default {
 <style scoped lang="css">
 h2 {display: inline;}
 .stock-id { float: right; font-size: 10px;}
+.danger { border: 1px solid red; }
 </style>

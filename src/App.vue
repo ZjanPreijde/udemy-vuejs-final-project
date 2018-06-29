@@ -21,23 +21,20 @@ export default {
           this.handleDayEnd()
           break
         case 'saveData':
-          this.handleSaveData(this.resource)
+          this.handleSaveData()
           break
         case 'loadData':
-          this.handleLoadData(this.resource)
+          this.handleLoadData()
           break
       }
     }
-  },
-  created () {
-    this.resource = this.$resource('stock-trader.json')
   },
   components: { appNavbar: Navbar }
 }
 </script>
 
 <style>
-.portfolio {
+.portfolio, .stocks {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -46,15 +43,16 @@ export default {
 
 }
 h1, h2 { text-align: center; }
+
 .flip-enter-active {
   animation:
-    flip-in 0.5s ease-out forwards;
+    flip 0.2s ease-out forwards;
 }
 .flip-leave-active {
   animation:
-    flip-in 0.5s ease-out forwards reverse;
+    flip 0.4s ease-out forwards reverse;
 }
-@keyframes flip-in {
+@keyframes flip {
   from { transform: rotateY(90deg); opacity: 0; }
   to   { transform: rotateY( 0deg); }
 }

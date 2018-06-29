@@ -10,16 +10,17 @@ const initialState = {
     { id: 104, name: 'Peugeot', price: 400 }
   ],
   portfolio: [
-    { id: 101, quantity: 1 }
   ],
   transactions: [
-    { id: 101, quantity: 1, price: 100 }
   ],
-  funds: 9900
+  funds: 10000
 }
 
 const getters = {
   // formattedAmount: (state, amount) => '$ ' + amount.toLocaleString('en')
+  funds: state => {
+    return state.funds
+  },
   formattedFunds: (state, getters) => getters.formattedAmount(state.funds),
   formattedAmount: state => amount => '$ ' + amount.toLocaleString('en'),
   getStockFromId: state => findId => {
@@ -57,8 +58,8 @@ const mutations = {
     // state = { ...state, payload } // This does not work
     state.funds = payload.funds
     state.stocks = payload.stocks
-    state.portfolio = payload.portfolio
-    state.transactions = payload.transactions
+    state.portfolio = payload.portfolio ? payload.portfolio : []
+    state.transactions = payload.transactions ? payload.transactions : []
   }
 }
 const actions = {
@@ -71,9 +72,9 @@ const actions = {
       commit('changeStockPrice', { id: stock.id, percentage })
     })
   },
-  handleSaveData: ({state, commit}, resource) => {
-    resource
-      .update({}, {...state})
+  handleSaveData: ({state, commit}) => {
+    Vue.http
+      .put('stock-trader.json', {...state})
       .then(
         response => {
         },
@@ -82,12 +83,16 @@ const actions = {
         }
       )
   },
-  handleLoadData: ({state, commit}, resource) => {
-    resource
-      .get({})
+  handleLoadData: ({state, commit}) => {
+    Vue.http
+      .get('stock-trader.json')
       .then(
         response => {
-          commit('saveLoadedData', response.body)
+          if (response.body) {
+            commit('saveLoadedData', response.body)
+          } else {
+            console.log('error loading data, no data', response)
+          }
         },
         error => {
           console.log('error loading data', error)
@@ -96,7 +101,8 @@ const actions = {
   }
 }
 
-export const store = new Vuex.Store({
+// export const store = new Vuex.Store({
+export default new Vuex.Store({
   state: initialState,
   getters,
   actions,

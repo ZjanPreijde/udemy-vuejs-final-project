@@ -4,11 +4,11 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 
 import App from '@/App'
-import router from '@/router'
-import { store } from '@/store/store'
+import router from '@/router' // export default ...
+import store from '@/store/store' // export default ...
 import { FIREBASE_URL } from '@/config/firebase'
 
-// testing purposes:
+// testing purposes: from webpack template
 Vue.config.productionTip = false
 
 Vue.use(VueResource)

@@ -13,12 +13,8 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  data () {
-    return {
-    }
-  },
   computed: {
-    ...mapGetters(['formattedFunds', 'formattedAmount'])
+    ...mapGetters(['formattedFunds'])
   }
 }
 </script>

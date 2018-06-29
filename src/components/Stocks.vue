@@ -1,5 +1,5 @@
 <template>
-  <div class="row portfolio">
+  <div class="row stocks">
     <app-stock-item v-for="stock in stocks" :key="stock.id" :stock="stock" />
   </div>
 </template>
@@ -7,11 +7,6 @@
 <script>
 import StockItem from '@/components/StockItem'
 export default {
-  data () {
-    return {
-      // Any data?
-    }
-  },
   computed: {
     stocks () {
       return this.$store.state.stocks

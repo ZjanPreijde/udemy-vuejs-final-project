@@ -7,12 +7,8 @@
 <script>
 import PortfolioItem from '@/components/PortfolioItem'
 export default {
-  data () {
-    return { /* any data? */ }
-  },
   computed: {
     portfolio () {
-      // console.log('portfolio', this.$store.state.portfolio)
       return this.$store.state.portfolio
     }
   },

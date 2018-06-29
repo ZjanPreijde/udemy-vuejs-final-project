@@ -5,15 +5,7 @@
   </div>
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-    }
-  }
-}
-</script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+h3 { text-align: center; }
 </style>
